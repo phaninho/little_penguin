@@ -1,0 +1,1 @@
+sed -i -e 's/EXTRAVERSION = -rc7/EXTRAVERSION = -rc7-thor_kernel/g' /root/little_penguin/linux/Makefile
