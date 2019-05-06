@@ -1,1 +1,15 @@
-sed -i -e 's/EXTRAVERSION = -rc7/EXTRAVERSION = -rc7-thor_kernel/g' /root/little_penguin/linux/Makefile
+#sed -i -e 's/EXTRAVERSION = -rc7/EXTRAVERSION = -rc7-thor_kernel/g' /root/little_penguin/linux/Makefile
+
+diff --git Makefile Makefile
+index abe13538a8c0..b63792355feb 100644
+--- Makefile
++++ Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 5
+ PATCHLEVEL = 1
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION = -rc7-thor_kernel
+ NAME = Shy Crocodile
+ 
+# *DOCUMENTATION*
