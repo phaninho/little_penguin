@@ -1,0 +1,2 @@
+SUBSYSTEM=="input", SUBSYSTEMS=="usb", ACTION=="add", RUN+="/sbin/insmod /root/github/little_penguin/04/kb_module.ko"
+SUBSYSTEM=="input", SUBSYSTEMS=="usb", ACTION=="remove", RUN+="/sbin/rmmod /root/github/little_penguin/04/kb_module"
