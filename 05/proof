@@ -1,0 +1,22 @@
+root [ ~/github/little_penguin/05 ]# insmod misc_module.ko			[  624.553903] fortytwo: got minor 57
+root [ ~/github/little_penguin/05 ]# cat /dev/fortytwo
+stmartinroot [ ~/github/little_penguin/05 ]
+root [ ~/github/little_penguin/05 ]# echo -n stmar > /dev/fortytwo		[  650.978537] INVALID value
+-bash: echo: write error: Invalid argument
+root [ ~/github/little_penguin/05 ]# echo -n stmartin > /dev/fortytwo		[  660.645468] VALID value
+root [ ~/github/little_penguin/05 ]# cat /proc/misc
+ 57 fortytwo
+ 58 memory_bandwidth
+ 59 network_throughput
+ 60 network_latency
+ 61 cpu_dma_latency
+236 device-mapper
+237 loop-control
+183 hw_random
+144 nvram
+228 hpet
+235 autofs
+231 snapshot
+ 62 rfkill
+ 63 vga_arbiter
+root [ ~/github/little_penguin/05 ]# rmmod misc_module				[  723.948848] sorti du module, misc_exit
