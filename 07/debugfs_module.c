@@ -7,14 +7,20 @@
 #include <linux/debugfs.h>
 
 #define PATH "fortytwo" 
+#define LOGIN "stmartin"
+#define LOGIN_LEN 8
+#define BUFF_SIZE 256
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("stmartin");
 MODULE_DESCRIPTION("This module is for debugfs!");
 
+static char   message[BUFF_SIZE] = {0};           ///< Memory for the string that is passed from userspace
+
 struct dentry *dir_entry, *file_entry;
 static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset);
 static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset);
+static int	check_login(void);
 
 static struct file_operations fops = {
 	.read = dev_read,
@@ -23,12 +29,37 @@ static struct file_operations fops = {
 
 static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset)
 {
-   	return 1;
+	if (*offset == 0 && len > LOGIN_LEN) {
+		if (copy_to_user(buffer, LOGIN, LOGIN_LEN) == 0 )
+			return (*offset = LOGIN_LEN);
+		else {
+			printk(KERN_INFO "Failed to send characters to the user\n");
+			return -EFAULT;
+		}
+	}
+   	return 0;
+}
+
+static int	check_login()
+{
+	if (strlen(message) == LOGIN_LEN && !(strcmp(LOGIN, message))) {
+		printk(KERN_INFO "VALID value\n");
+		return LOGIN_LEN;
+	}
+	printk(KERN_INFO "INVALID value\n");
+   	return -EINVAL;
 }
 
 static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset)
 {
-	return 1;
+	if (len > BUFF_SIZE)
+   		return 0;
+	memset(message, 0, BUFF_SIZE);
+	if (copy_from_user(message, buffer, len)) {
+		printk(KERN_INFO "failed to copy message from user\n");
+   		return -EFAULT;
+	}
+	return (check_login());
 }
 
 void	create_file(const char *name, umode_t mode)
