@@ -8,7 +8,6 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("stmartin");
 MODULE_DESCRIPTION("This module is for HID detection!");
 
-
 static struct usb_device_id kb_table [] = {
         { USB_INTERFACE_INFO(USB_INTERFACE_CLASS_HID,    \
 		USB_INTERFACE_SUBCLASS_BOOT,     \
@@ -16,7 +15,7 @@ static struct usb_device_id kb_table [] = {
         { }                      /* Terminating entry */
 };
 
-MODULE_DEVICE_TABLE (usb, kb_table);
+MODULE_DEVICE_TABLE(usb, kb_table);
 
 static int kb_probe(struct usb_interface *interface,
     const struct usb_device_id *id)
@@ -31,7 +30,7 @@ static void kb_disconnect(struct usb_interface *interface)
 }
 
 static struct usb_driver kb_driver = {
-        .name        = "keyboard",
+	.name        = "kb_module",
         .probe       = kb_probe,
         .disconnect  = kb_disconnect,
         .id_table    = kb_table,
