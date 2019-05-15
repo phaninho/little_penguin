@@ -108,7 +108,6 @@ static int	check_login()
 
 static ssize_t id_write(struct file *filep, const char *buffer, size_t len, loff_t *offset)
 {
-	printk(KERN_INFO "debugfs_module: offset [%lld]\n", *offset);
 	if (len > BUFF_SIZE)
    		return 0;
 	memset(message, 0, BUFF_SIZE);
@@ -116,6 +115,7 @@ static ssize_t id_write(struct file *filep, const char *buffer, size_t len, loff
 		printk(KERN_INFO "failed to copy message from user\n");
    		return -EFAULT;
 	}
+	printk(KERN_INFO "debugfs_module: offset [%lld] %ld\n", *offset, strlen(message));
 	return (check_login());
 }
 
