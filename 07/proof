@@ -1,0 +1,24 @@
+[   99.626784] init debugfs module!
+[   99.627035] PATH dir have been successfully created!
+[   99.627307] [id] file have been successfully created!
+[   99.628634] [jiffies] file have been successfully created!
+[   99.628972] [foo] file have been successfully created!
+[  181.719505] debugfs_module: offset [0] 7
+[  181.719886] INVALID value
+[  197.291230] debugfs_module: offset [0] 8
+[  197.291620] VALID value
+
+
+root:[~] : cd /sys/kernel/debug/
+root:[/sys/kernel/debug] : cd fortytwo/
+root:[/sys/kernel/debug/fortytwo] : cat jiffies
+4294785988
+root:[/sys/kernel/debug/fortytwo] : cat id
+root:[/sys/kernel/debug/fortytwo] : echo -n stmartn > id
+-bash: echo: write error: Invalid argument
+root:[/sys/kernel/debug/fortytwo] : echo -n stmartin > id
+root:[/sys/kernel/debug/fortytwo] : cat foo
+root:[/sys/kernel/debug/fortytwo] : echo "hello" > foo
+root:[/sys/kernel/debug/fortytwo] : cat foo
+hello
+
